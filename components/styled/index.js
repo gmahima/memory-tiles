@@ -12,7 +12,7 @@ ${tw `
 `
 export const GameContainer = styled.div`
 ${tw `
-    text-xl bg-gray-900 text-center rounded-lg text-gray-500
+    text-xl bg-gray-900 text-center rounded-lg
     p-12
 `}
 `

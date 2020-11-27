@@ -6,5 +6,7 @@ export const SquareContainer = styled.div `
         rounded-lg 
         bg-gray-100
         p-12
+        cursor-pointer
+        text-gray-700
     `}
 `

@@ -1,27 +1,9 @@
 import React from 'react'
 import {SquareContainer} from './styled/Square'
 
-const squares = [
-    {
-        id: '1',
-        content: 'asdf'
-    },
-    {
-        id: '2',
-        content: 'asdf'
-    },
-    {
-        id: '3',
-        content: 'asdf'
-    },
-    {
-        id: '4',
-        content: 'asdf'
-    }
-]
-const Square = ({s}) => {
+const Square = ({s, handleClick}) => {
     return (
-        <SquareContainer>
+        <SquareContainer onClick={() => {handleClick()}}>
             {s.content}
         </SquareContainer>
     )
