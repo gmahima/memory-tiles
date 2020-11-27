@@ -19,12 +19,15 @@ const squares = [
         content: 'asdf'
     }
 ]
+const handleClick = (id) => {
+    console.log(`square ${id} clicked`)
+}
 const Game = () => {
     return (
         <SquaresContainer order={2}>
             {squares.map(s => {
                 return (
-                    <Square key={s.id} s={s} />
+                    <Square key={s.id} s={s} handleClick={handleClick}/>
                 )
             })}
         </SquaresContainer>
