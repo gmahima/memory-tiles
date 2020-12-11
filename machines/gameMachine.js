@@ -33,10 +33,16 @@ const gameMachine = Machine({
     },
     states: {
         idle: {
+            entry: {
+                target: 'won',
+                cond: "didWin"
+            },
             // add transition to check - if no active squares in context, transition to game won
-            entry: 'removeSquareSelection',
+            // after: {
+            //     1000: 'removeSquareSelection' //wrong
+            // },
             on: {
-                SELECT: {
+                SELECT: {// will be called by squareMachine
                     target: 'selected',
                     actions: [
                         'select'
@@ -45,10 +51,22 @@ const gameMachine = Machine({
             }
         },
         selected: {
-
+            on: {
+                SELECTSECONDSQUARE: {
+                    target: 'idle',
+                    actions: [
+                        'removeIfMatched'
+                    ]
+                }
+            }
         }
     }
 }, {
+    guards: {
+        didWin: (context, event) => {
+            return context.squares.lenght === 0
+        }
+    },
     actions: {
         select: (context, event) => {
             assign({
@@ -60,8 +78,12 @@ const gameMachine = Machine({
                 selectedSquare: null
             })
         },
-        compare: (context, event) => {
-            console.log(context.selectedSquare, event.squareId)
+        removeIfMatched: (context, event) => {
+            console.log(context.selectedSquare, event.square)
+            if(context.selectedSquare.value === event.square.value) {
+                // remove them from context and remove the squares
+            }
+
 
         }
     }
