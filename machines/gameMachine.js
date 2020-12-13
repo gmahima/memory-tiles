@@ -72,17 +72,18 @@ const gameMachine = Machine({
         }
     },
     actions: {
-        populate: (context, event) => {
+        populate: assign((context, event) => {
             const squares = squareData.map(s => {
                 const square = spawn(createSquareMachine(s))
                 return (
                     square
                 )
             })
-            assign({
+            return ({
+                ...context,
                 squares: squares
             })
-        },
+        }),
         select: (context, event) => {
             if(!context.disabledSquares.find(i => i === event.squareId)) {
                 assign({

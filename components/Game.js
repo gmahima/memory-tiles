@@ -8,9 +8,9 @@ const Game = () => {
     const {squares} = current.context
     return (
         <SquaresContainer order={2}>
-            {squares.map(s => {
+            {squares && squares.map(s => {
                 return (
-                    <Square key={s.id} s={s} handleClick={handleClick}/>
+                    <Square key={s.id} s={s}/>
                 )
             })}
         </SquaresContainer>

@@ -1,10 +1,10 @@
 import React from 'react'
 import {SquareContainer} from './styled/Square'
 
-const Square = ({s, handleClick}) => {
+const Square = ({s}) => {
     return (
-        <SquareContainer onClick={() => {handleClick(s.id)}}>
-            {s.content}
+        <SquareContainer>
+            {s.value}
         </SquareContainer>
     )
 }
