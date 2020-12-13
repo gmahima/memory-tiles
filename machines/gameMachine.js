@@ -40,7 +40,6 @@ const gameMachine = Machine({
                 target: 'won',
                 cond: "didWin"
             },
-            entry: 'hideSquares',
             // add transition to check - if no active squares in context, transition to game won
             // after: {
             //     1000: 'removeSquareSelection' //wrong
