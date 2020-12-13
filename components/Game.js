@@ -1,28 +1,11 @@
 import React from 'react'
 import Square from './Square'
 import {SquaresContainer} from './styled/Game'
-const squares = [
-    {
-        id: '1',
-        content: 'asdf'
-    },
-    {
-        id: '2',
-        content: 'asdf'
-    },
-    {
-        id: '3',
-        content: 'asdf'
-    },
-    {
-        id: '4',
-        content: 'asdf'
-    }
-]
-const handleClick = (id) => {
-    console.log(`square ${id} clicked`)
-}
+import gameMachine from '../machines/gameMachine'
+import { useMachine } from '@xstate/react'
 const Game = () => {
+    const [current, send] = useMachine(gameMachine)
+    const {squares} = current.context
     return (
         <SquaresContainer order={2}>
             {squares.map(s => {

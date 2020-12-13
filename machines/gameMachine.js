@@ -63,7 +63,8 @@ const gameMachine = Machine({
                     ]
                 }
             }
-        }
+        },
+        won: {}
     }
 }, {
     guards: {
