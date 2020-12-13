@@ -1,9 +1,9 @@
 import React, {useMemo} from 'react'
-import {useService} from '@xstate/react'
+import {useService, useActor} from '@xstate/react'
 import {SquareContainer} from './styled/Square'
 
-const Square = ({s}) => {
-    const [current, send] = useService(s)
+const Square = ({service}) => {
+    const [current, send] = useActor(service)
     return (
         <SquareContainer>
             {current.context.value}

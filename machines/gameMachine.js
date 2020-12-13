@@ -3,19 +3,19 @@ import createSquareMachine from './SquareMachine'
 const squareData = [
     {
         id: '1',
-        value: 'asdf'
+        value: 'pikachu'
     },
     {
         id: '2',
-        value: 'asdf'
+        value: 'piplub'
     },
     {
         id: '3',
-        value: 'asdf'
+        value: 'butterfree'
     },
     {
         id: '4',
-        value: 'asdf'
+        value: 'charizard'
     }
 ]
 // create squaremachine to store selected/not

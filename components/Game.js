@@ -10,7 +10,7 @@ const Game = () => {
         <SquaresContainer order={2}>
             {squares && squares.map(s => {
                 return (
-                    <Square key={s.id} s={s}/>
+                    <Square key={s.id} service={s}/>
                 )
             })}
         </SquaresContainer>
