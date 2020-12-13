@@ -11,7 +11,7 @@ const squareData = [
     },
     {
         id: '3',
-        value: 'butterfree'
+        value: 'pikachu'
     },
     {
         id: '4',
