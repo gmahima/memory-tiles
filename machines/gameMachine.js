@@ -3,23 +3,23 @@ import {Machine, assign} from 'xstate'
 const squares = [
     {
         id: '1',
-        content: 'asdf',
-        selected: false
+        value: 'asdf',
+        show: false
     },
     {
         id: '2',
-        content: 'asdf',
-        selected: false
+        value: 'asdf',
+        show: false
     },
     {
         id: '3',
-        content: 'asdf',
-        selected: false
+        value: 'asdf',
+        show: false
     },
     {
         id: '4',
-        content: 'asdf',
-        selected: false
+        value: 'asdf',
+        show: false
     }
 ]
 // create squaremachine to store selected/not
@@ -29,14 +29,16 @@ const gameMachine = Machine({
     initial: 'idle',
     context: {
         squares: squares,
-        selectedSquare: undefined
+        selectedSquareId: undefined,
+        disabledSquares: []
     },
     states: {
         idle: {
-            entry: {
+            always: {
                 target: 'won',
                 cond: "didWin"
             },
+            entry: 'hideSquares',
             // add transition to check - if no active squares in context, transition to game won
             // after: {
             //     1000: 'removeSquareSelection' //wrong
@@ -52,7 +54,7 @@ const gameMachine = Machine({
         },
         selected: {
             on: {
-                SELECTSECONDSQUARE: {
+                COMPARE: {
                     target: 'idle',
                     actions: [
                         'removeIfMatched'
@@ -64,14 +66,28 @@ const gameMachine = Machine({
 }, {
     guards: {
         didWin: (context, event) => {
-            return context.squares.lenght === 0
+            return (context.disabledSquares.length === context.squares.length)
         }
     },
     actions: {
+        // hide squares
+        show: (context, id) => {
+           const square =  context.squares.find(s => s.id === id)
+        //    square.show = true;
+        },
+        hide: (context, id) => {
+            const square =  context.squares.find(s => s.id === id)
+            square.show = false;
+         },
         select: (context, event) => {
-            assign({
-                selectedSquare: event.squareId
-            })
+            if(!context.disabledSquares.find(i => i === event.squareId)) {
+                assign({
+                    selectedSquareId: event.squareId
+                })
+                show(context, event.sqareId)
+                
+            }
+            
         },
         removeSquareSelection: () => {
             assign({
@@ -79,11 +95,13 @@ const gameMachine = Machine({
             })
         },
         removeIfMatched: (context, event) => {
-            console.log(context.selectedSquare, event.square)
-            if(context.selectedSquare.value === event.square.value) {
-                // remove them from context and remove the squares
+            const selectedSquare = context.squares.find(s => s.id === context.selectedSquareId)
+            const square = context.squares.find(s => s.id === event.squareId)
+            // square.show = true;
+            // after delay
+            if(square.value === selectedSquare.value) {
+                // disabled.push(sq, selsq)
             }
-
 
         }
     }
