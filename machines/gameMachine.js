@@ -1,38 +1,40 @@
-import {Machine, assign} from 'xstate'
-
-const squares = [
+import {Machine, assign, spawn, send} from 'xstate'
+import createSquareMachine from './SquareMachine'
+const squareData = [
     {
         id: '1',
-        value: 'asdf',
-        show: false
+        value: 'asdf'
     },
     {
         id: '2',
-        value: 'asdf',
-        show: false
+        value: 'asdf'
     },
     {
         id: '3',
-        value: 'asdf',
-        show: false
+        value: 'asdf'
     },
     {
         id: '4',
-        value: 'asdf',
-        show: false
+        value: 'asdf'
     }
 ]
 // create squaremachine to store selected/not
 // check delayed transition
 const gameMachine = Machine({
     id: 'game',
-    initial: 'idle',
+    initial: 'start',
     context: {
-        squares: squares,
+        squares: [],
         selectedSquareId: undefined,
         disabledSquares: []
     },
     states: {
+        start: {
+            always: {
+                target: 'idle'
+            },
+            entry: 'populate'
+        },
         idle: {
             always: {
                 target: 'won',
@@ -70,38 +72,62 @@ const gameMachine = Machine({
         }
     },
     actions: {
-        // hide squares
-        show: (context, id) => {
-           const square =  context.squares.find(s => s.id === id)
-        //    square.show = true;
+        populate: (context, event) => {
+            const squares = squareData.map(s => {
+                const square = spawn(createSquareMachine(s))
+                return (
+                    square
+                )
+            })
+            assign({
+                squares: squares
+            })
         },
-        hide: (context, id) => {
-            const square =  context.squares.find(s => s.id === id)
-            square.show = false;
-         },
         select: (context, event) => {
             if(!context.disabledSquares.find(i => i === event.squareId)) {
                 assign({
                     selectedSquareId: event.squareId
                 })
-                show(context, event.sqareId)
-                
+                send('SHOW', {
+                    to: (context => context.squares.find(s => s.id === event.squareId))
+                })  
             }
             
         },
-        removeSquareSelection: () => {
+        removeSquareSelection: (context, event) => {
             assign({
                 selectedSquare: null
             })
+            if(context.selectedSquareId) {
+                send('HIDE', {
+                    to: (context => context.squares.find(s => s.id === context.selectedSquareId))
+                }) 
+            } 
         },
         removeIfMatched: (context, event) => {
             const selectedSquare = context.squares.find(s => s.id === context.selectedSquareId)
             const square = context.squares.find(s => s.id === event.squareId)
-            // square.show = true;
-            // after delay
-            if(square.value === selectedSquare.value) {
-                // disabled.push(sq, selsq)
-            }
+            send('SHOW', {
+                to: square
+            })  
+            setTimeout(() => {
+                if(square.value === selectedSquare.value) {
+                    assign({
+                        disabledSquares: [...disabledSquares, selectedSquare.id, square.id]
+                    })
+                    send('DISABLE', {
+                        to: square
+                    })
+                    send('DISABLE', {
+                        to: selectedSquare
+                    })
+                }
+                else {
+                    send('HIDE', {
+                        to: square
+                    })
+                }
+            }, 3000);
 
         }
     }
