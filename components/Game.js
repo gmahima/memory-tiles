@@ -6,9 +6,10 @@ import { useMachine } from '@xstate/react'
 const Game = () => {
     const [current, send] = useMachine(gameMachine)
     const {squares} = current.context
+    const n = 2;
     return (
-        <SquaresContainer order={2}>
-            {squares && squares.map(s => {
+        <SquaresContainer order={n}>
+            {squares && squares.map((s, i) => {
                 return (
                     <Square key={s.id} service={s}/>
                 )

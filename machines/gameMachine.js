@@ -7,15 +7,15 @@ const squareData = [
     },
     {
         id: '2',
-        value: 'piplub'
-    },
-    {
-        id: '3',
         value: 'pikachu'
     },
     {
+        id: '3',
+        value: 'jigglypuff'
+    },
+    {
         id: '4',
-        value: 'charizard'
+        value: 'jigglypuff'
     }
 ]
 // create squaremachine to store selected/not
@@ -44,11 +44,11 @@ const gameMachine = Machine({
             entry: 'populate'
         },
         idle: {
-            entry: () => {console.log('idle called')},
+            entry: (context) => {console.log(context.squares)},
             always: [
                 {
-                target: 'won',
-                cond: "didWin"
+                    target: 'won',
+                    cond: "didWin"
                 },
                 {
                     target: 'match',
@@ -115,17 +115,16 @@ const gameMachine = Machine({
         }
     },
     actions: {
-        populate: assign((context, event) => {
-            const squares = squareData.map(s => {
-                const square = spawn(createSquareMachine(s), s.id)
-                return (
-                    square
-                )
-            })
-            return ({
-                ...context,
-                squares: squares
-            })
+        populate: assign({
+            squares: (context, event) => {
+                const squares = squareData.map(s => {
+                    const square = spawn(createSquareMachine(s), s.id)
+                    return (
+                        square
+                    )
+                })
+                return squares
+            }
         }),
         selectSquare: assign({
             selectedSquare: (context, event) => {
