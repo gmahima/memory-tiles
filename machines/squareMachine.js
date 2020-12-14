@@ -1,4 +1,4 @@
-import {Machine, assign,send} from 'xstate'
+import {Machine, assign,send, sendParent} from 'xstate'
 
 export default function createSquareMachine (squareData) {
     return Machine({
@@ -12,6 +12,16 @@ export default function createSquareMachine (squareData) {
                 on: {
                     SHOW: {
                         target: 'visible'
+                    }, // try not to use -> use select
+                    SELECT: {
+                        target: 'visible',
+                        actions: sendParent((context, event) => {
+                            return (
+                                {type: "SELECT_SQUARE", squareId: context.id, squareValue: context.value}
+                            )
+                        }, {
+                            delay: 300})
+
                     }
                 }
             },
