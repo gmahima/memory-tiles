@@ -32,6 +32,9 @@ export default function createSquareMachine (squareData) {
                     },
                     DISABLE: {
                         target: 'disabled'
+                    },
+                    SELECT: {
+                        target: 'hidden'
                     }
                 }
             },
