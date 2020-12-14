@@ -104,8 +104,9 @@ const gameMachine = Machine({
     guards: {
         matchFound: (context) => {
             console.log(context.selectedSquare.value!==null && context.squareToCompare.value!==null && context.selectedSquare.value === context.squareToCompare.value,context.selectedSquare.value, context.squareToCompare.value)
+            const areDisabled = context.disabledSquares.find(id => (id === context.selectedSquare.id || id === context.squareToCompare.id))
             return (
-                context.selectedSquare.value!==null && context.squareToCompare.value!==null && context.selectedSquare.value === context.squareToCompare.value
+                !areDisabled && context.selectedSquare.value!==null && context.squareToCompare.value!==null && context.selectedSquare.value === context.squareToCompare.value
             )
         },
         didWin: (context) => {
