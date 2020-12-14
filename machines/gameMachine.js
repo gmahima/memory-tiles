@@ -37,12 +37,14 @@ const gameMachine = Machine({
     },
     states: {
         start: {
+            entry: () => {console.log('start called')},
             always: {
                 target: 'idle'
             },
             entry: 'populate'
         },
         idle: {
+            entry: () => {console.log('idle called')},
             always: [
                 {
                 target: 'won',
@@ -136,6 +138,13 @@ const gameMachine = Machine({
         }),
         selectSquareToCompare: assign({
             squareToCompare: (context, event) => {
+                console.log(context);
+                return ({
+                    id: context.selectedSquare.id,
+                    value: context.selectedSquare.value
+                })
+            },
+            selectedSquare: (context, event) => {
                 console.log(context);
                 return ({
                     id: event.squareId,
