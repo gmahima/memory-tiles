@@ -18,8 +18,6 @@ const squareData = [
         value: 'jigglypuff'
     }
 ]
-// create squaremachine to store selected/not
-// check delayed transition
 const gameMachine = Machine({
     id: 'game',
     initial: 'start',
@@ -55,17 +53,7 @@ const gameMachine = Machine({
                     cond: 'matchFound'
                 }
             ],
-            // add transition to check - if no active squares in context, transition to game won
-            // after: {
-            //     1000: 'removeSquareSelection' //wrong
-            // },
             on: {
-                // SELECT: {
-                //     target: 'selected',
-                //     actions: [
-                //         'select'
-                //     ]
-                // }
                 SELECT_SQUARE: {
                     target: 'selected',
                     actions: [
@@ -111,7 +99,6 @@ const gameMachine = Machine({
         },
         didWin: (context) => {
             console.log(context.disabledSquares)
-            // console.log(context, event)
             return (context.disabledSquares.length === context.squares.length)
         }
     },
@@ -134,7 +121,7 @@ const gameMachine = Machine({
                     id: event.squareId,
                     value: event.squareValue
                 }
-            } // pass data too
+            }
         }),
         selectSquareToCompare: assign({
             squareToCompare: (context, event) => {
@@ -169,59 +156,6 @@ const gameMachine = Machine({
                 value: null
             }
         })
-        // disableIfMatched: assign({
-        //     disabledSquares: (context, event) => {
-        //         console.log(context, event)
-        //         let d = [...context.disabledSquares]
-        //         const selectedSquare = context.selectedSquare
-        //         const square = {id: event.squareId, value: event.squareValue}
-        //         console.log(square.value, selectedSquare.value) // value is undefined // maybe store selected square's value here 
-        //         if(square.value === selectedSquare.value) {
-        //             d.push(selectedSquare.id, square.id)
-        //         }
-        //         return d;
-                
-        //     }
-        // }),
-
-            
-        // },
-        // removeSquareSelection: (context, event) => {
-        //     assign({
-        //         selectedSquare: null
-        //     })
-        //     if(context.selectedSquareId) {
-        //         send('HIDE', {
-        //             to: (context => context.squares.find(s => s.id === context.selectedSquareId))
-        //         }) 
-        //     } 
-        // },
-        // removeIfMatched: (context, event) => {
-            // const selectedSquare = context.squares.find(s => s.id === context.selectedSquareId)
-            // const square = context.squares.find(s => s.id === event.squareId)
-        //     send('SHOW', {
-        //         to: square
-        //     })  
-        //     setTimeout(() => {
-        //         if(square.value === selectedSquare.value) {
-        //             assign({
-        //                 disabledSquares: [...disabledSquares, selectedSquare.id, square.id]
-        //             })
-        //             send('DISABLE', {
-        //                 to: square
-        //             })
-        //             send('DISABLE', {
-        //                 to: selectedSquare
-        //             })
-        //         }
-        //         else {
-        //             send('HIDE', {
-        //                 to: square
-        //             })
-        //         }
-        //     }, 3000);
-
-        // }
     }
 })
 
