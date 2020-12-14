@@ -29,6 +29,10 @@ const gameMachine = Machine({
             id: null,
             value: null
         },
+        squareToCompare: {
+            id: null,
+            value: null
+        },
         disabledSquares: []
     },
     states: {
@@ -39,10 +43,16 @@ const gameMachine = Machine({
             entry: 'populate'
         },
         idle: {
-            always: {
+            always: [
+                {
                 target: 'won',
                 cond: "didWin"
-            },
+                },
+                {
+                    target: 'match',
+                    cond: 'matchFound'
+                }
+            ],
             // add transition to check - if no active squares in context, transition to game won
             // after: {
             //     1000: 'removeSquareSelection' //wrong
@@ -67,17 +77,37 @@ const gameMachine = Machine({
                 SELECT_SQUARE: {
                     target: 'idle',
                     actions: [
-                        'disableIfMatched'
+                        'selectSquareToCompare'
                     ]
                 }
             }
+        },
+        match: {
+            entry: [
+                send('DISABLE', {
+                    to: (context => context.squares.find(s => s.id === context.selectedSquare.id))
+                }),
+                send('DISABLE', {
+                    to: (context => context.squares.find(s => s.id === context.squareToCompare.id))
+                })
+            ],
+            exit: [
+                'disableMatchedSquares'
+            ],
+            always: 'idle'
         },
         won: {}
     }
 }, {
     guards: {
-        didWin: (context, event) => {
-            console.log(context.disabledSquares.length)
+        matchFound: (context) => {
+            console.log(context.selectedSquare.value!==null && context.squareToCompare.value!==null && context.selectedSquare.value === context.squareToCompare.value,context.selectedSquare.value, context.squareToCompare.value)
+            return (
+                context.selectedSquare.value!==null && context.squareToCompare.value!==null && context.selectedSquare.value === context.squareToCompare.value
+            )
+        },
+        didWin: (context) => {
+            console.log(context.disabledSquares)
             // console.log(context, event)
             return (context.disabledSquares.length === context.squares.length)
         }
@@ -95,15 +125,6 @@ const gameMachine = Machine({
                 squares: squares
             })
         }),
-        // select: (context, event) => {
-        //     if(!context.disabledSquares.find(i => i === event.squareId)) {
-        //         assign({
-        //             selectedSquareId: event.squareId
-        //         })
-        //         send('SHOW', {
-        //             to: (context => context.squares.find(s => s.id === event.squareId))
-        //         })  
-        //     }
         selectSquare: assign({
             selectedSquare: (context, event) => {
                 console.log(context);
@@ -113,20 +134,46 @@ const gameMachine = Machine({
                 }
             } // pass data too
         }),
-        disableIfMatched: assign({
-            disabledSquares: (context, event) => {
-                console.log(context, event)
-                let d = [...context.disabledSquares]
-                const selectedSquare = context.selectedSquare
-                const square = {id: event.squareId, value: event.squareValue}
-                console.log(square.value, selectedSquare.value) // value is undefined // maybe store selected square's value here 
-                if(square.value === selectedSquare.value) {
-                    d.push(selectedSquare.id, square.id)
-                }
-                return d;
-                
+        selectSquareToCompare: assign({
+            squareToCompare: (context, event) => {
+                console.log(context);
+                return ({
+                    id: event.squareId,
+                    value: event.squareValue
+                })
             }
         }),
+        disableMatchedSquares: assign({
+            disabledSquares: (context, event) => {
+                let d = [...context.disabledSquares]
+                d.push(context.selectedSquare.id, context.squareToCompare.id)
+                return d;
+            }
+        }),
+        removeSelectedSquares: assign({
+            selectedSquare: {
+                id: null,
+                value: null
+            },
+            squareToCompare: {
+                id: null,
+                value: null
+            }
+        })
+        // disableIfMatched: assign({
+        //     disabledSquares: (context, event) => {
+        //         console.log(context, event)
+        //         let d = [...context.disabledSquares]
+        //         const selectedSquare = context.selectedSquare
+        //         const square = {id: event.squareId, value: event.squareValue}
+        //         console.log(square.value, selectedSquare.value) // value is undefined // maybe store selected square's value here 
+        //         if(square.value === selectedSquare.value) {
+        //             d.push(selectedSquare.id, square.id)
+        //         }
+        //         return d;
+                
+        //     }
+        // }),
 
             
         // },
