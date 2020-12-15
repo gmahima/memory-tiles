@@ -35,22 +35,17 @@ const gameMachine = Machine({
     },
     states: {
         start: {
-            entry: () => {console.log('start called')},
             always: {
                 target: 'idle'
             },
             entry: 'populate'
         },
         idle: {
-            entry: (context) => {console.log(context.squares)},
+            entry: 'removeSelectedSquares',
             always: [
                 {
                     target: 'won',
                     cond: "didWin"
-                },
-                {
-                    target: 'match',
-                    cond: 'matchFound'
                 }
             ],
             on: {
@@ -65,12 +60,36 @@ const gameMachine = Machine({
         selected: {
             on: {
                 SELECT_SQUARE: {
-                    target: 'idle',
+                    target: 'compare',
                     actions: [
                         'selectSquareToCompare'
                     ]
                 }
             }
+        },
+        compare: {
+            entry: (context) => {console.log("in compare", context)},
+            // always: [
+                // {
+                //     to: 'match',
+                //     cond: 'matchFound'
+                // },
+            //     {
+            //         to: 'idle'
+            //     }
+            // ]
+                always: [                
+                    // {
+                    //     to: 'match',
+                    //     cond: 'matchFound'
+                    // },
+                    {
+                        target: 'idle'
+                    }
+                ]
+        },
+        dummy: {
+            entry: (context) => {console.log("in dummy", context)}
         },
         match: {
             entry: [
@@ -79,9 +98,7 @@ const gameMachine = Machine({
                 }),
                 send('DISABLE', {
                     to: (context => context.squares.find(s => s.id === context.squareToCompare.id))
-                })
-            ],
-            exit: [
+                }),
                 'disableMatchedSquares'
             ],
             always: 'idle'
@@ -90,17 +107,20 @@ const gameMachine = Machine({
     }
 }, {
     guards: {
+        didWin: (context) => {
+            console.log(context.disabledSquares)
+            console.log("CHECKING FOR WIN")
+            return (context.disabledSquares.length === context.squares.length)
+        },
         matchFound: (context) => {
-            console.log(context.selectedSquare.value!==null && context.squareToCompare.value!==null && context.selectedSquare.value === context.squareToCompare.value,context.selectedSquare.value, context.squareToCompare.value)
+            
             const areDisabled = context.disabledSquares.find(id => (id === context.selectedSquare.id || id === context.squareToCompare.id))
+            console.log(!areDisabled && context.selectedSquare.value!==null && context.squareToCompare.value!==null && context.selectedSquare.value === context.squareToCompare.value)
             return (
                 !areDisabled && context.selectedSquare.value!==null && context.squareToCompare.value!==null && context.selectedSquare.value === context.squareToCompare.value
             )
-        },
-        didWin: (context) => {
-            console.log(context.disabledSquares)
-            return (context.disabledSquares.length === context.squares.length)
         }
+        
     },
     actions: {
         populate: assign({
@@ -112,6 +132,16 @@ const gameMachine = Machine({
                     )
                 })
                 return squares
+            }
+        }),
+        removeSelectedSquares: assign({
+            selectedSquare: {
+                id: null,
+                value: null
+            },
+            squareToCompare: {
+                id: null,
+                value: null
             }
         }),
         selectSquare: assign({
@@ -132,7 +162,6 @@ const gameMachine = Machine({
                 })
             },
             selectedSquare: (context, event) => {
-                console.log(context);
                 return ({
                     id: event.squareId,
                     value: event.squareValue
@@ -142,18 +171,11 @@ const gameMachine = Machine({
         disableMatchedSquares: assign({
             disabledSquares: (context, event) => {
                 let d = [...context.disabledSquares]
-                d.push(context.selectedSquare.id, context.squareToCompare.id)
+                if(!d.find(i => (i===context.selectedSquare.id || i === context.squareToCompare.id))) {
+                    d.push(context.selectedSquare.id)
+                    d.push(context.squareToCompare.id)
+                }
                 return d;
-            }
-        }),
-        removeSelectedSquares: assign({
-            selectedSquare: {
-                id: null,
-                value: null
-            },
-            squareToCompare: {
-                id: null,
-                value: null
             }
         })
     }
