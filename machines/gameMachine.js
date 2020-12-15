@@ -1,5 +1,5 @@
 import {Machine, assign, spawn, send} from 'xstate'
-import createSquareMachine from './SquareMachine'
+import createSquareMachine from './squareMachine'
 const squareData = [
     {
         id: '1',
