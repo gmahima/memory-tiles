@@ -27,9 +27,9 @@ export default function createSquareMachine (squareData) {
             },
             visible: {
                 on: {
-                    // HIDE: {
-                    //     target: 'hidden'
-                    // },
+                    HIDE: {
+                        target: 'hidden'
+                    },
                     DISABLE: {
                         target: 'disabled'
                     },

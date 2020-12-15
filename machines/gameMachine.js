@@ -72,7 +72,7 @@ const gameMachine = Machine({
             entry: (context) => {console.log("in compare", context)},
             always: [
                 {
-                    target: 'idle',
+                    target: 'noMatch',
                     cond: 'noMatchFound'
                 },
                 {
@@ -94,6 +94,18 @@ const gameMachine = Machine({
                     to: (context => {console.log(context.squareToCompare); return context.squares.find(s => s.id === context.squareToCompare.id)})
                 }),
                 'disableMatchedSquares'
+            ],
+            always: 'idle'
+        },
+        noMatch: {
+            entry: [
+                send('HIDE', {
+                    
+                    to: (context => {console.log(context.selectedSquare); return context.squares.find(s => s.id === context.selectedSquare.id)})
+                }),
+                send('HIDE', {
+                    to: (context => {console.log(context.squareToCompare); return context.squares.find(s => s.id === context.squareToCompare.id)})
+                })
             ],
             always: 'idle'
         },
