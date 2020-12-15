@@ -16,6 +16,54 @@ const squareData = [
     {
         id: '4',
         value: 'jigglypuff'
+    },
+    {
+        id: '5',
+        value: 'charizard'
+    },
+    {
+        id: '6',
+        value: 'piplub'
+    },
+    {
+        id: '7',
+        value: 'charizard'
+    },
+    {
+        id: '8',
+        value: 'piplub'
+    },
+    {
+        id: '9',
+        value: 'pikachu'
+    },
+    {
+        id: '10',
+        value: 'pikachu'
+    },
+    {
+        id: '11',
+        value: 'jigglypuff'
+    },
+    {
+        id: '12',
+        value: 'jigglypuff'
+    },
+    {
+        id: '13',
+        value: 'charizard'
+    },
+    {
+        id: '14',
+        value: 'piplub'
+    },
+    {
+        id: '15',
+        value: 'charizard'
+    },
+    {
+        id: '16',
+        value: 'piplub'
     }
 ]
 const gameMachine = Machine({
