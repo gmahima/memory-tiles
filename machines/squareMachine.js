@@ -15,7 +15,7 @@ export default function createSquareMachine (squareData) {
                     }, // try not to use -> use select
                     SELECT: {
                         target: 'visible',
-                        actions: sendParent((context, event) => {
+                        actions: sendParent((context) => {
                             return (
                                 {type: "SELECT_SQUARE", squareId: context.id, squareValue: context.value}
                             )
@@ -27,14 +27,19 @@ export default function createSquareMachine (squareData) {
             },
             visible: {
                 on: {
-                    HIDE: {
-                        target: 'hidden'
-                    },
+                    // HIDE: {
+                    //     target: 'hidden'
+                    // },
                     DISABLE: {
                         target: 'disabled'
                     },
                     SELECT: {
-                        target: 'hidden'
+                        target: 'hidden',
+                        actions: sendParent((context) => {
+                            return {
+                                type: "CANCEL_SELECTION"
+                            }
+                        })
                     }
                 }
             },

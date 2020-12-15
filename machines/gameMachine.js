@@ -62,6 +62,9 @@ const gameMachine = Machine({
                     actions: [
                         'selectSquareToCompare'
                     ]
+                },
+                CANCEL_SELECTION: {
+                    target: 'idle'
                 }
             }
         },
@@ -84,10 +87,11 @@ const gameMachine = Machine({
         match: {
             entry: [
                 send('DISABLE', {
-                    to: (context => context.squares.find(s => s.id === context.selectedSquare.id))
+                    
+                    to: (context => {console.log(context.selectedSquare); return context.squares.find(s => s.id === context.selectedSquare.id)})
                 }),
                 send('DISABLE', {
-                    to: (context => context.squares.find(s => s.id === context.squareToCompare.id))
+                    to: (context => {console.log(context.squareToCompare); return context.squares.find(s => s.id === context.squareToCompare.id)})
                 }),
                 'disableMatchedSquares'
             ],
