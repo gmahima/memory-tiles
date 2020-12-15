@@ -42,12 +42,10 @@ const gameMachine = Machine({
         },
         idle: {
             entry: 'removeSelectedSquares',
-            always: [
-                {
-                    target: 'won',
-                    cond: "didWin"
-                }
-            ],
+            always: {
+                target: 'won',
+                cond: "didWin"
+            },
             on: {
                 SELECT_SQUARE: {
                     target: 'selected',
@@ -69,24 +67,9 @@ const gameMachine = Machine({
         },
         compare: {
             entry: (context) => {console.log("in compare", context)},
-            // always: [
-                // {
-                //     to: 'match',
-                //     cond: 'matchFound'
-                // },
-            //     {
-            //         to: 'idle'
-            //     }
-            // ]
-                always: [                
-                    // {
-                    //     to: 'match',
-                    //     cond: 'matchFound'
-                    // },
-                    {
-                        target: 'idle'
-                    }
-                ]
+            always: [
+                'idle'
+            ]         
         },
         dummy: {
             entry: (context) => {console.log("in dummy", context)}
