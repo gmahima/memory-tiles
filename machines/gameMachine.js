@@ -68,7 +68,11 @@ const gameMachine = Machine({
         compare: {
             entry: (context) => {console.log("in compare", context)},
             always: [
-                'idle'
+                {
+                    target: 'idle',
+                    cond: 'noMatchFound'
+                }
+                
             ]         
         },
         dummy: {
@@ -94,6 +98,14 @@ const gameMachine = Machine({
             console.log(context.disabledSquares)
             console.log("CHECKING FOR WIN")
             return (context.disabledSquares.length === context.squares.length)
+        },
+        noMatchFound: (context) => {
+            
+            const areDisabled = context.disabledSquares.find(id => (id === context.selectedSquare.id || id === context.squareToCompare.id))
+            console.log(!areDisabled && context.selectedSquare.value!==null && context.squareToCompare.value!==null && context.selectedSquare.value === context.squareToCompare.value)
+            return (
+                !(!areDisabled && context.selectedSquare.value!==null && context.squareToCompare.value!==null && context.selectedSquare.value === context.squareToCompare.value)
+            )
         },
         matchFound: (context) => {
             
