@@ -71,6 +71,9 @@ const gameMachine = Machine({
                 {
                     target: 'idle',
                     cond: 'noMatchFound'
+                },
+                {
+                    target: 'match'
                 }
                 
             ]         
