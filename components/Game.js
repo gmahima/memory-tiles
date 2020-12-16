@@ -7,9 +7,6 @@ const Game = () => {
     const [current, send] = useMachine(gameMachine)
     const {squares} = current.context
     const n = 4;
-    if(current.value === 'won') {
-        alert("you won!")
-    }
     return (
         <SquaresContainer order={n}>
             {squares && squares.map((s, i) => {

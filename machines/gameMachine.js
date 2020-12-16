@@ -3,67 +3,67 @@ import createSquareMachine from './squareMachine'
 const squareData = [
     {
         id: '1',
-        value: 'pikachu'
+        value: '1'
     },
     {
         id: '2',
-        value: 'pikachu'
+        value: '1'
     },
     {
         id: '3',
-        value: 'jigglypuff'
+        value: '2'
     },
     {
         id: '4',
-        value: 'jigglypuff'
+        value: '2'
     },
     {
         id: '5',
-        value: 'charizard'
+        value: '3'
     },
     {
         id: '6',
-        value: 'piplub'
+        value: '4'
     },
     {
         id: '7',
-        value: 'charizard'
+        value: '3'
     },
     {
         id: '8',
-        value: 'piplub'
+        value: '4'
     },
     {
         id: '9',
-        value: 'pikachu'
+        value: '1'
     },
     {
         id: '10',
-        value: 'pikachu'
+        value: '1'
     },
     {
         id: '11',
-        value: 'jigglypuff'
+        value: '2'
     },
     {
         id: '12',
-        value: 'jigglypuff'
+        value: '2'
     },
     {
         id: '13',
-        value: 'charizard'
+        value: '3'
     },
     {
         id: '14',
-        value: 'piplub'
+        value: '4'
     },
     {
         id: '15',
-        value: 'charizard'
+        value: '3'
     },
     {
         id: '16',
-        value: 'piplub'
+        value: '4'
     }
 ]
 const gameMachine = Machine({

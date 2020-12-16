@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react'
 import {useActor} from '@xstate/react'
-import {SquareContainer} from './styled/Square'
+import {SquareContainer, Image} from './styled/Square'
 
 const Square = ({service, x, y}) => {
     const [current, send] = useActor(service)
@@ -12,7 +12,9 @@ const Square = ({service, x, y}) => {
     return (
         current.value !== 'disabled' ? ( 
             <SquareContainer onClick={onClick}>
-                {current.value === 'visible' && current.context.value}
+                {current.value === 'visible' && (
+                    <Image src={`sprites/${current.context.value}.png`}></Image>
+                )}
             </SquareContainer>
         ) : (
             <SquareContainer disabled></SquareContainer>

@@ -18,3 +18,6 @@ export const SquareContainer = styled.div `
         }
     }}
 `
+export const Image = styled.img `
+${tw `w-full`}
+`
