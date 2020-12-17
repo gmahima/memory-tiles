@@ -157,7 +157,27 @@ const gameMachine = Machine({
             ],
             always: 'idle'
         },
-        won: {}
+        won: {
+            on: {
+                RESET: {
+                    target: 'start',
+                    actions: [
+                        assign({
+                            squares: [],
+                            selectedSquare: {
+                                id: null,
+                                value: null
+                            },
+                            squareToCompare: {
+                                id: null,
+                                value: null
+                            },
+                            disabledSquares: []
+                        })
+                    ]
+                }
+            }
+        }
     }
 }, {
     guards: {
