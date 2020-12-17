@@ -84,9 +84,16 @@ const gameMachine = Machine({
     states: {
         start: {
             always: {
-                target: 'idle'
+                target: 'peek'
             },
             entry: 'populate'
+        },
+        peek: {
+            always: {
+                target: 'idle'
+            },
+            entry: 'showAllSquares',
+            exit: 'hideAllSquares'
         },
         idle: {
             entry: 'removeSelectedSquares',
@@ -216,6 +223,14 @@ const gameMachine = Machine({
                 return squares
             }
         }),
+        showAllSquares: (context) => {
+            context.squares.forEach(c => c.send("SHOW"))
+        },
+        hideAllSquares: (context) => {
+            setTimeout(() => {
+                context.squares.forEach(c => c.send("HIDE"))
+            }, 3000)
+        },
         removeSelectedSquares: assign({
             selectedSquare: {
                 id: null,
