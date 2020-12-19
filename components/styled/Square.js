@@ -1,20 +1,21 @@
 import styled from 'styled-components'
 import tw from 'twin.macro'
-
+import {motion} from 'framer-motion'
 export const SquareContainer = styled.div `
     ${tw `
         rounded-lg 
-        bg-gray-100
+        bg-white
         flex items-center justify-center
         text-xs sm:text-sm
         h-12 w-12 sm:w-24 sm:h-24
         cursor-pointer
         text-gray-700
+        shadow
 
     `}
     ${props => {
         if(props.disabled) {
-            return tw`bg-black bg-opacity-25`
+            return tw`bg-gray-300 shadow-none bg-opacity-25`
         }
     }}
 `
