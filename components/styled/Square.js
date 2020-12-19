@@ -17,6 +17,9 @@ export const SquareContainer = styled(motion.div) `
         if(props.disabled) {
             return tw`bg-gray-300 shadow-none bg-opacity-25`
         }
+        if(props.hidden) {
+            return tw`bg-red-400`
+        }
     }}
 `
 export const Image = styled.img `
