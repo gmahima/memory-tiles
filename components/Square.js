@@ -12,7 +12,7 @@ const Square = ({service, x, y}) => {
     return (
         current.value !== 'disabled' ? ( 
             <SquareContainer onClick={onClick}>
-                {current.value === 'visible' && (
+                {(current.value === 'visible' || current.value === 'showAnswer') && (
                     <Image src={`sprites/${current.context.value}.png`}></Image>
                 )}
             </SquareContainer>

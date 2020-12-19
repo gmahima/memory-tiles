@@ -3,11 +3,16 @@ import {Machine, assign,send, sendParent} from 'xstate'
 export default function createSquareMachine (squareData) {
     return Machine({
         id: 'square',
-        initial: 'hidden',
+        initial: 'showAnswer',
         context: {
             ...squareData
         },
         states: {
+            showAnswer: {
+                after: {
+                    700: 'hidden'
+                }
+            },
             hidden: {
                 on: {
                     SHOW: {
