@@ -10,7 +10,7 @@ export default function createSquareMachine (squareData) {
         states: {
             showAnswer: {
                 after: {
-                    700: 'hidden'
+                    2000: 'hidden'
                 }
             },
             hidden: {

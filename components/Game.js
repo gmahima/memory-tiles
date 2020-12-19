@@ -25,7 +25,7 @@ const Game = () => {
                         animate={{opacity: 1, height: 50}}
                         exit={{opacity: 0, height: 0}}
                         onClick={() => send("RESET")}
-                    >You win!</SuccessMessage>
+                    >You win! Replay ?</SuccessMessage>
                 </Overlay>
             )}
         </AnimatePresence>

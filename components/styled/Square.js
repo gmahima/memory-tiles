@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import tw from 'twin.macro'
 import {motion} from 'framer-motion'
-export const SquareContainer = styled.div `
+export const SquareContainer = styled(motion.div) `
     ${tw `
         rounded-lg 
         bg-white
