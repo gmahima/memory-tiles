@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react'
 import {useActor} from '@xstate/react'
 import {SquareContainer, Image} from './styled/Square'
-import {AnimatePresence} from 'framer-motion'
+import {AnimatePresence, motion} from 'framer-motion'
 const Square = ({service, x, y}) => {
     const [current, send] = useActor(service)
     const onClick = () => {
@@ -10,41 +10,31 @@ const Square = ({service, x, y}) => {
         })
     }
     return (
-        <AnimatePresence>
-{        current.value !== 'disabled' ? ( 
-            current.value === 'visible' || current.value === 'showAnswer' ? (
-                <SquareContainer onClick={onClick}
-                animate={{ rotate: 180 }}
-                exit={{ x: -300, opacity: 0 }}
-                transition={{
-                    x: { type: "spring", stiffness: 300, damping: 30 },
-                    opacity: { duration: 0.2 }
-                  }}
-                >
-                        <Image src={`sprites/${current.context.value}.png`}></Image>
-                </SquareContainer>
-            ) : (
-                <SquareContainer onClick={onClick} hidden 
-                animate={{ rotate: 90 }}
-                exit={{ x: -300, opacity: 0 }}
-                transition={{
-                    x: { type: "spring", stiffness: 300, damping: 30 },
-                    opacity: { duration: 0.2 }
-                  }}
-                >
-                        {/* <Image src={`sprites/${current.context.value}.png`}></Image> */}
-                </SquareContainer>
-            )
-        ) : (
-            <SquareContainer disabled 
-            animate={{ rotate: 90 }}
-            exit={{ x: -300, opacity: 0 }}
-            transition={{
-                x: { type: "spring", stiffness: 300, damping: 30 },
-                opacity: { duration: 0.2 }
-              }}
-            ></SquareContainer>
-        )}
+        <AnimatePresence exitBeforeEnter={true}>
+            <motion.div onClick={onClick}
+                initial={{opacity: 0}}
+                animate={{opacity: 1, rotate: 270}}
+                exit={{opacity: 0}}
+            >
+                {console.log("+++++++++++++++++++ " + current.value + " ++++++++++++++++++++")}
+                {current.value === 'disabled' && (
+                    <SquareContainer disabled animate={{opacity: 1, x: 0, rotate: 90}}>disabled</SquareContainer>
+                )}
+                {current.value === 'showAnswer' && (
+                    <SquareContainer
+                    animate={{opacity: 1, x: 0, rotate: 90}}
+                    >
+                        answer
+                    </SquareContainer>
+                )}
+                {current.value === 'hidden' && (
+                    <SquareContainer hidden animate={{opacity: 1, x: 0, rotate: 90}}
+                    >hidden</SquareContainer>
+                )}
+                {current.value === 'visible' && (
+                    <SquareContainer visible animate={{opacity: 1, x: 0, rotate: 90}}>visible</SquareContainer>
+                )}
+            </motion.div>
         </AnimatePresence>
     //     <SquareContainer
 
