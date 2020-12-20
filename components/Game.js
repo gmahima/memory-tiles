@@ -4,6 +4,7 @@ import {SquaresContainer, Overlay, SuccessMessage} from './styled/Game'
 import gameMachine from '../machines/gameMachine'
 import { useMachine } from '@xstate/react'
 import {motion, AnimatePresence} from 'framer-motion'
+
 const Game = () => {
     const [current, send] = useMachine(gameMachine)
     const {squares} = current.context

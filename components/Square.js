@@ -1,6 +1,7 @@
 import React, {useMemo} from 'react'
 import {useActor} from '@xstate/react'
-import {SquareContainer, Image} from './styled/Square'
+import {SquareContainer} from './styled/Square'
+import Image from 'next/image'
 import {AnimatePresence, motion} from 'framer-motion'
 const Square = ({service, x, y}) => {
     const [current, send] = useActor(service)
@@ -24,7 +25,7 @@ const Square = ({service, x, y}) => {
                     <SquareContainer
                     animate={{opacity: 1, x: 0, rotate: 90}}
                     >
-                        <Image src={`sprites/${current.context.value}.png`}></Image>
+                        <Image layout='fill' src={`/sprites/${current.context.value}.png`} alt={`${current.context.value}`}></Image>
                     </SquareContainer>
                 )}
                 {current.value === 'hidden' && (
@@ -33,7 +34,7 @@ const Square = ({service, x, y}) => {
                 )}
                 {current.value === 'visible' && (
                     <SquareContainer visible animate={{opacity: 1, x: 0, rotate: 90}}>
-                        <Image src={`sprites/${current.context.value}.png`}></Image>
+                        <Image layout='fill' src={`/sprites/${current.context.value}.png`} alt={`${current.context.value}`}></Image>
                     </SquareContainer>
                 )}
             </motion.div>
