@@ -18,21 +18,23 @@ const Square = ({service, x, y}) => {
             >
                 {console.log("+++++++++++++++++++ " + current.value + " ++++++++++++++++++++")}
                 {current.value === 'disabled' && (
-                    <SquareContainer disabled animate={{opacity: 1, x: 0, rotate: 90}}>disabled</SquareContainer>
+                    <SquareContainer disabled animate={{opacity: 1, x: 0, rotate: 90}}></SquareContainer>
                 )}
                 {current.value === 'showAnswer' && (
                     <SquareContainer
                     animate={{opacity: 1, x: 0, rotate: 90}}
                     >
-                        answer
+                        <Image src={`sprites/${current.context.value}.png`}></Image>
                     </SquareContainer>
                 )}
                 {current.value === 'hidden' && (
-                    <SquareContainer hidden animate={{opacity: 1, x: 0, rotate: 90}}
-                    >hidden</SquareContainer>
+                    <SquareContainer animate={{opacity: 1, x: 0, rotate: 90}}
+                    ></SquareContainer>
                 )}
                 {current.value === 'visible' && (
-                    <SquareContainer visible animate={{opacity: 1, x: 0, rotate: 90}}>visible</SquareContainer>
+                    <SquareContainer visible animate={{opacity: 1, x: 0, rotate: 90}}>
+                        <Image src={`sprites/${current.context.value}.png`}></Image>
+                    </SquareContainer>
                 )}
             </motion.div>
         </AnimatePresence>
