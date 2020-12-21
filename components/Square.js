@@ -1,6 +1,6 @@
 import React, {useMemo, useState} from 'react'
 import {useActor} from '@xstate/react'
-import {SquareContainer} from './styled/Square'
+// import {SquareContainer} from './styled/Square'
 import Image from 'next/image'
 import {AnimatePresence, motion} from 'framer-motion'
 import tw from 'twin.macro'
@@ -20,7 +20,7 @@ const toastVariants= {
     animate: {color: '#0000ff'},
     exit: {color: '#ff0000'}
   }
-  function Toast ({value, handleClick}) {
+  function SquareContainer ({value, handleClick, children}) {
     return (
         <AnimatePresence>
       {/* {!blue ? (
@@ -52,6 +52,7 @@ const toastVariants= {
         exit="exit"
         >
           <motion.span variants={blueSpanVariants}>blue toast</motion.span>
+          {children}
         </motion.div>
       )}
       {value === 'hidden' && (
@@ -90,7 +91,9 @@ const Square = ({service, x, y}) => {
         })
     }
     return (
-          <Toast value={current.value} handleClick={onClick}></Toast>
+          <SquareContainer value={current.value} handleClick={onClick}>
+            {(current.value === 'showAnswer' || current.value === 'visible') && <Image layout='fill' src={`/sprites/${current.context.value}.png`} alt={`${current.context.value}`}></Image>}
+          </SquareContainer>
 
     //     <SquareContainer
 
