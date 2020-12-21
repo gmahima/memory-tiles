@@ -14,6 +14,11 @@ export const Visible = styled(motion.div) `
         shadow
 
     `}
+    ${(props) => {
+        if(props.value === 'showAnswer') {
+            return tw`cursor-default`
+        }
+    }}
 `
 export const StyledImage = styled(motion.img) `
 ${tw `w-full`}
