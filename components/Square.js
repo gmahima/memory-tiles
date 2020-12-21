@@ -1,44 +1,88 @@
-import React, {useMemo} from 'react'
+import React, {useMemo, useState} from 'react'
 import {useActor} from '@xstate/react'
 import {SquareContainer} from './styled/Square'
 import Image from 'next/image'
 import {AnimatePresence, motion} from 'framer-motion'
+import tw from 'twin.macro'
+
+const toastVariants= {
+    initial: {y: "200%"},
+    animate: {y: "0%"},
+    exit: {y: "200%"}
+  }
+  const spanVariants= {
+    initial: {color: '#ff0000'},
+    animate: {color: '#00ff00'},
+    exit: {color: '#0000ff'}
+  }
+  const blueSpanVariants= {
+    initial: {color: '#00ff00'},
+    animate: {color: '#0000ff'},
+    exit: {color: '#ff0000'}
+  }
+  function Toast ({blue}) {
+    return (
+        <AnimatePresence>
+      {!blue ? (
+        <motion.div css={tw`bg-gray-900 text-white py-2 px-4 bg-opacity-75 m-2 rounded`}
+      variants={toastVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      >
+        <motion.span variants={blueSpanVariants}>blue toast</motion.span>
+      </motion.div>
+      ): (
+        <motion.div css={tw`bg-gray-900 text-white py-2 px-4 bg-opacity-75 m-2 rounded`}
+      variants={toastVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      >
+        <motion.span variants={spanVariants}>toast</motion.span>
+      </motion.div>
+      )}
+      </AnimatePresence>
+    )
+    if(blue) {
+      return (
+        <motion.div css={tw`bg-gray-900 text-white py-2 px-4 bg-opacity-75 m-2 rounded absolute bottom-0 right-0`}
+      variants={toastVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      >
+        <motion.span variants={spanVariants}>toast</motion.span>
+      </motion.div>
+      )
+    }
+    else {
+      return (
+        <motion.div css={tw`bg-gray-900 text-white py-2 px-4 bg-opacity-75 m-2 rounded absolute bottom-0 right-0`}
+      variants={toastVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      >
+        <motion.span variants={blueSpanVariants}>blue toast</motion.span>
+      </motion.div>
+      )
+    }
+  }
+  
 const Square = ({service, x, y}) => {
     const [current, send] = useActor(service)
+    const [showToast, setShowToast] = useState(false)
     const onClick = () => {
         send({
             type: 'SELECT'
         })
     }
     return (
-        <AnimatePresence exitBeforeEnter={true}>
-            <motion.div onClick={onClick}
-                initial={{opacity: 0}}
-                animate={{opacity: 1, rotate: 270}}
-                exit={{opacity: 0}}
-            >
-                {console.log("+++++++++++++++++++ " + current.value + " ++++++++++++++++++++")}
-                {current.value === 'disabled' && (
-                    <SquareContainer disabled animate={{opacity: 1, x: 0, rotate: 90}}></SquareContainer>
-                )}
-                {current.value === 'showAnswer' && (
-                    <SquareContainer
-                    animate={{opacity: 1, x: 0, rotate: 90}}
-                    >
-                        <Image layout='fill' src={`/sprites/${current.context.value}.png`} alt={`${current.context.value}`}></Image>
-                    </SquareContainer>
-                )}
-                {current.value === 'hidden' && (
-                    <SquareContainer animate={{opacity: 1, x: 0, rotate: 90}}
-                    ></SquareContainer>
-                )}
-                {current.value === 'visible' && (
-                    <SquareContainer visible animate={{opacity: 1, x: 0, rotate: 90}}>
-                        <Image layout='fill' src={`/sprites/${current.context.value}.png`} alt={`${current.context.value}`}></Image>
-                    </SquareContainer>
-                )}
-            </motion.div>
-        </AnimatePresence>
+        <>
+        <button onClick={() => {setShowToast(!showToast)}} css={tw`m-2 p-1 bg-green-500 text-white rounded`}>show toast</button>
+      <Toast blue={showToast}></Toast>
+      </>
     //     <SquareContainer
 
     //     animate={{ rotate: 360 }}
