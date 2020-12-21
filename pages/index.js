@@ -21,6 +21,27 @@ const blueSpanVariants= {
   exit: {color: '#ff0000'}
 }
 function Toast ({blue}) {
+  return (
+    !blue ? (
+      <motion.div css={tw`bg-gray-900 text-white py-2 px-4 bg-opacity-75 m-2 rounded absolute bottom-0 right-0`}
+    variants={toastVariants}
+    initial="initial"
+    animate="animate"
+    exit="exit"
+    >
+      <motion.span variants={blueSpanVariants}>blue toast</motion.span>
+    </motion.div>
+    ): (
+      <motion.div css={tw`bg-gray-900 text-white py-2 px-4 bg-opacity-75 m-2 rounded absolute bottom-0 right-0`}
+    variants={toastVariants}
+    initial="initial"
+    animate="animate"
+    exit="exit"
+    >
+      <motion.span variants={spanVariants}>toast</motion.span>
+    </motion.div>
+    )
+  )
   if(blue) {
     return (
       <motion.div css={tw`bg-gray-900 text-white py-2 px-4 bg-opacity-75 m-2 rounded absolute bottom-0 right-0`}
