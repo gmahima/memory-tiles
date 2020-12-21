@@ -1,13 +1,13 @@
 import React, {useMemo, useState} from 'react'
 import {useActor} from '@xstate/react'
-// import {SquareContainer} from './styled/Square'
+import {Visible, Hidden, Disabled} from './styled/Square'
 import Image from 'next/image'
 import {AnimatePresence, motion} from 'framer-motion'
 import tw from 'twin.macro'
 
 const toastVariants= {
-    initial: {y: "200%"},
-    animate: {y: "0%"},
+    initial: {x: "-200%"},
+    animate: {x: "0%"},
     exit: {y: "200%"}
   }
   const spanVariants= {
@@ -44,38 +44,35 @@ const toastVariants= {
       )} */}
       {console.log(value)}
       {(value === 'showAnswer' || value==='visible') && (
-        <motion.div css={tw`bg-red-900 text-white py-2 px-4 bg-opacity-75 m-2 rounded`}
+        <Visible value={value}
         onClick={handleClick}
         variants={toastVariants}
         initial="initial"
         animate="animate"
         exit="exit"
         >
-          <motion.span variants={blueSpanVariants}>blue toast</motion.span>
           {children}
-        </motion.div>
+          </Visible>
       )}
       {value === 'hidden' && (
-        <motion.div css={tw`bg-green-900 text-white py-2 px-4 bg-opacity-75 m-2 rounded`}
+        <Hidden value={value}
         onClick={handleClick}
         variants={toastVariants}
         initial="initial"
         animate="animate"
         exit="exit"
         >
-          <motion.span variants={blueSpanVariants}>blue toast</motion.span>
-        </motion.div>
+        </Hidden>
       )}
       {value === 'disabled' && (
-        <motion.div css={tw`bg-gray-900 text-white py-2 px-4 bg-opacity-75 m-2 rounded`}
+        <Disabled value={value}
         onClick={handleClick}
         variants={toastVariants}
         initial="initial"
         animate="animate"
         exit="exit"
         >
-          <motion.span variants={blueSpanVariants}>blue toast</motion.span>
-        </motion.div>
+        </Disabled>
       )}
       </AnimatePresence>
     )
