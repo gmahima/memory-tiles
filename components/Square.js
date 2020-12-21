@@ -1,14 +1,14 @@
 import React, {useMemo, useState} from 'react'
 import {useActor} from '@xstate/react'
-import {Visible, Hidden, Disabled} from './styled/Square'
+import {Visible, Hidden, Disabled, StyledImage} from './styled/Square'
 import Image from 'next/image'
 import {AnimatePresence, motion} from 'framer-motion'
 import tw from 'twin.macro'
 
 const toastVariants= {
-    initial: {x: "-200%"},
-    animate: {x: "0%"},
-    exit: {y: "200%"}
+    initial: {x: "-50%", opacity: 0, scale: 0},
+    animate: {x: "0%", opacity: 1, scale: 1},
+    exit: {x: "50%", opacity: 0, scale: 0}
   }
   const spanVariants= {
     initial: {color: '#ff0000'},
@@ -20,6 +20,7 @@ const toastVariants= {
     animate: {color: '#0000ff'},
     exit: {color: '#ff0000'}
   }
+  // motion not working without seperate scs ? some thing can be improved? 
   function SquareContainer ({value, handleClick, children}) {
     return (
         <AnimatePresence>
@@ -89,7 +90,7 @@ const Square = ({service, x, y}) => {
     }
     return (
           <SquareContainer value={current.value} handleClick={onClick}>
-            {(current.value === 'showAnswer' || current.value === 'visible') && <Image layout='fill' src={`/sprites/${current.context.value}.png`} alt={`${current.context.value}`}></Image>}
+            {(current.value === 'showAnswer' || current.value === 'visible') && <StyledImage animate={{}}layout='fill' src={`/sprites/${current.context.value}.png`} alt={`${current.context.value}`}></StyledImage>}
           </SquareContainer>
 
     //     <SquareContainer

@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import tw from 'twin.macro'
 import {motion} from 'framer-motion'
+import Image from 'next/image'
 export const Visible = styled(motion.div) `
     ${tw `
         rounded-lg 
@@ -14,7 +15,7 @@ export const Visible = styled(motion.div) `
 
     `}
 `
-export const Image = styled.img `
+export const StyledImage = styled(motion.img) `
 ${tw `w-full`}
 `
 
