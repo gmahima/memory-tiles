@@ -25,7 +25,7 @@ export default function createSquareMachine (squareData) {
                                 {type: "SELECT_SQUARE", squareId: context.id, squareValue: context.value}
                             )
                         }, {
-                            delay: 300})
+                            delay: 500})
 
                     }
                 }

@@ -30,13 +30,15 @@ const Game = () => {
                 </Overlay>
             )}
         </AnimatePresence>
-        <SquaresContainer order={n}>
-            {squares && squares.map((s, i) => {
-                return (
-                    <Square key={s.id} service={s}/>
-                )
-            })}
-        </SquaresContainer>
+        {squares && (
+            <SquaresContainer order={n}>
+                {squares.map((s, i) => {
+                    return (
+                        <Square key={s.id} service={s}/>
+                    )
+                })}
+            </SquaresContainer>
+        )}
         </>
     )
 }

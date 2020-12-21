@@ -23,7 +23,7 @@ const toastVariants= {
   // motion not working without seperate scs ? some thing can be improved? 
   function SquareContainer ({value, handleClick, children}) {
     return (
-        <AnimatePresence>
+        <AnimatePresence exitBeforeEnter>
       {/* {!blue ? (
         <motion.div css={tw`bg-gray-900 text-white py-2 px-4 bg-opacity-75 m-2 rounded`}
       variants={toastVariants}
@@ -51,6 +51,9 @@ const toastVariants= {
         initial="initial"
         animate="animate"
         exit="exit"
+        whileHover={value==='visible' ? {
+          y: -4,
+        } : {}}
         >
           {children}
           </Visible>
@@ -62,6 +65,9 @@ const toastVariants= {
         initial="initial"
         animate="animate"
         exit="exit"
+        whileHover={{
+          y: -4
+        }}
         >
         </Hidden>
       )}
