@@ -20,10 +20,10 @@ const toastVariants= {
     animate: {color: '#0000ff'},
     exit: {color: '#ff0000'}
   }
-  function Toast ({blue}) {
+  function Toast ({value, handleClick}) {
     return (
         <AnimatePresence>
-      {!blue ? (
+      {/* {!blue ? (
         <motion.div css={tw`bg-gray-900 text-white py-2 px-4 bg-opacity-75 m-2 rounded`}
       variants={toastVariants}
       initial="initial"
@@ -41,48 +41,57 @@ const toastVariants= {
       >
         <motion.span variants={spanVariants}>toast</motion.span>
       </motion.div>
+      )} */}
+      {console.log(value)}
+      {(value === 'showAnswer' || value==='visible') && (
+        <motion.div css={tw`bg-red-900 text-white py-2 px-4 bg-opacity-75 m-2 rounded`}
+        onClick={handleClick}
+        variants={toastVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        >
+          <motion.span variants={blueSpanVariants}>blue toast</motion.span>
+        </motion.div>
+      )}
+      {value === 'hidden' && (
+        <motion.div css={tw`bg-green-900 text-white py-2 px-4 bg-opacity-75 m-2 rounded`}
+        onClick={handleClick}
+        variants={toastVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        >
+          <motion.span variants={blueSpanVariants}>blue toast</motion.span>
+        </motion.div>
+      )}
+      {value === 'disabled' && (
+        <motion.div css={tw`bg-gray-900 text-white py-2 px-4 bg-opacity-75 m-2 rounded`}
+        onClick={handleClick}
+        variants={toastVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        >
+          <motion.span variants={blueSpanVariants}>blue toast</motion.span>
+        </motion.div>
       )}
       </AnimatePresence>
     )
-    if(blue) {
-      return (
-        <motion.div css={tw`bg-gray-900 text-white py-2 px-4 bg-opacity-75 m-2 rounded absolute bottom-0 right-0`}
-      variants={toastVariants}
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      >
-        <motion.span variants={spanVariants}>toast</motion.span>
-      </motion.div>
-      )
-    }
-    else {
-      return (
-        <motion.div css={tw`bg-gray-900 text-white py-2 px-4 bg-opacity-75 m-2 rounded absolute bottom-0 right-0`}
-      variants={toastVariants}
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      >
-        <motion.span variants={blueSpanVariants}>blue toast</motion.span>
-      </motion.div>
-      )
-    }
-  }
+      }
   
 const Square = ({service, x, y}) => {
     const [current, send] = useActor(service)
     const [showToast, setShowToast] = useState(false)
     const onClick = () => {
+      console.log("hi")
         send({
             type: 'SELECT'
         })
     }
     return (
-        <>
-        <button onClick={() => {setShowToast(!showToast)}} css={tw`m-2 p-1 bg-green-500 text-white rounded`}>show toast</button>
-      <Toast blue={current.value==="showAnswer"}></Toast>
-      </>
+          <Toast value={current.value} handleClick={onClick}></Toast>
+
     //     <SquareContainer
 
     //     animate={{ rotate: 360 }}
