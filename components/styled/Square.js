@@ -27,9 +27,9 @@ ${tw `w-full`}
 export const Hidden = styled(Visible) `
 ${tw `bg-white shadow`}
 `
-export const Disabled = styled(motion.div) `
+export const Disabled = styled(Visible) `
     ${tw ` 
-    bg-gray-200 cursor-default
+    bg-gray-200 cursor-default shadow-none
     `}
 `
 
