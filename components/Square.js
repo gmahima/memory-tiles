@@ -81,7 +81,7 @@ const Square = ({service, x, y}) => {
     return (
         <>
         <button onClick={() => {setShowToast(!showToast)}} css={tw`m-2 p-1 bg-green-500 text-white rounded`}>show toast</button>
-      <Toast blue={showToast}></Toast>
+      <Toast blue={current.value==="showAnswer"}></Toast>
       </>
     //     <SquareContainer
 
