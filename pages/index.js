@@ -74,11 +74,6 @@ export default function Home() {
       <GameContainer>
         <Game />
       </GameContainer>
-      <button onClick={() => {setShowToast(!showToast)}} css={tw`m-2 p-1 bg-green-500 text-white rounded`}>show toast</button>
-      <AnimatePresence>
-      <Toast blue={showToast}></Toast>
-      </AnimatePresence>
-      
     </AppContainer>
   )
 }
