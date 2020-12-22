@@ -196,9 +196,9 @@ const gameMachine = Machine({
         noMatchFound: (context) => {
             
             const areDisabled = context.disabledSquares.find(id => (id === context.selectedSquare.id || id === context.squareToCompare.id))
-            console.log(!areDisabled && context.selectedSquare.value!==null && context.squareToCompare.value!==null && context.selectedSquare.value === context.squareToCompare.value)
+            console.log(!areDisabled && context.selectedSquare.value!==null && context.squareToCompare.value!==null && context.selectedSquare.value === context.squareToCompare.value && !(context.selectedSquare.id === context.squareToCompare.id))
             return (
-                !(!areDisabled && context.selectedSquare.value!==null && context.squareToCompare.value!==null && context.selectedSquare.value === context.squareToCompare.value)
+                !(!areDisabled && context.selectedSquare.value!==null && context.squareToCompare.value!==null && context.selectedSquare.value === context.squareToCompare.value && !(context.selectedSquare.id === context.squareToCompare.id))
             )
         },
         matchFound: (context) => {
