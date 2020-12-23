@@ -11,6 +11,7 @@ const Game = () => {
     const n = 4;
     useEffect(() => {
         console.log(current.value)
+        //comment
     })
     return (
         <>
