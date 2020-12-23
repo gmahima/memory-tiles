@@ -9,7 +9,7 @@ export const SquaresContainer = styled.div `
     ${tw `p-4 sm:p-12 bg-gray-200 rounded`}
 `
 export const Overlay = styled(motion.div) `
-${tw `w-screen h-screen text-white fixed top-0 left-0 z-50 rounded flex items-center justify-center bg-black bg-opacity-25`}
+${tw `w-screen h-screen text-white fixed top-0 left-0 z-50 rounded flex items-center justify-center`}
 `
 export const SuccessMessage = styled(motion.div) `
 ${tw `p-1 sm:p-4 sm:w-56 font-bold text-white bg-green-500 rounded shadow-2xl flex items-center justify-center`}
