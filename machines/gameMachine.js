@@ -260,6 +260,7 @@ const gameMachine = Machine({
                     }
                 }
                 console.log(squareData)
+                squareData = shuffle(squareData)
                 const squares = squareData.map(s => {
                     const square = spawn(createSquareMachine(s), s.id)
                     return (
