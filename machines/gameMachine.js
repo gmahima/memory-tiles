@@ -263,26 +263,26 @@ const gameMachine = Machine({
         populate: assign({
             squares: (context, event) => {
                 // const squareIds = ['1', '2', '3', '4']
-                const squareIds = []
-                let i =1;
-                while(i <= 4) {
-                    let item = (Math.floor(Math.random() * (151 - 1 + 1)) + 1).toString()
-                    if(squareIds.length === 0) {
-                        squareIds.push(item)
-                        i++
-                    }
-                    else if(item !== squareIds[squareIds.length - 1]) {
-                        squareIds.push(item)
-                        i++
-                    }
-                }
-                console.log(squareIds)
+                // const squareIds = []
+                // let i =1;
+                // while(i <= 4) {
+                //     let item = (Math.floor(Math.random() * (151 - 1 + 1)) + 1).toString()
+                //     if(squareIds.length === 0) {
+                //         squareIds.push(item)
+                //         i++
+                //     }
+                //     else if(item !== squareIds[squareIds.length - 1]) {
+                //         squareIds.push(item)
+                //         i++
+                //     }
+                // }
+                
                 let squareData = []
                 for(let i=0; i<4; i++) {
                     for(let j=0; j<4; j++) {
                         squareData.push({
                             id: (squareData.length+1).toString(),
-                            value: (squareIds[i]).toString()
+                            value: (i+1).toString()
                         })
                     }
                 }
