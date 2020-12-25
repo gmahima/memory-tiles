@@ -4,11 +4,13 @@ import {SquaresContainer, Overlay, SuccessMessage} from './styled/Game'
 import gameMachine from '../machines/gameMachine'
 import { useMachine } from '@xstate/react'
 import {motion, AnimatePresence} from 'framer-motion'
+import createGameMachine from '../machines/gameMachine'
 
 const Game = () => {
-    const [current, send] = useMachine(gameMachine)
+    const n = 6;
+    const [current, send] = useMachine(createGameMachine(n))
     const {squares} = current.context
-    const n = 4;
+    
     useEffect(() => {
         console.log(current.value)
         send("SET_UP_BOARD")
