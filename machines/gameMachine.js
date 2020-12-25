@@ -68,7 +68,6 @@ const squareData = [
 ]
 const gameMachine = Machine({
     id: 'game',
-    initial: 'start',
     context: {
         squares: [],
         selectedSquare: {
@@ -81,12 +80,15 @@ const gameMachine = Machine({
         },
         disabledSquares: []
     },
+    initial: 'start',
     states: {
         start: {
-            always: {
-                target: 'idle'
+            on: {
+                START: {
+                    target: 'idle'
+                }
             },
-            entry: 'populate'
+            exit: 'populate'
         },
         // peek: {
         //     always: {

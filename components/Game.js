@@ -11,8 +11,8 @@ const Game = () => {
     const n = 4;
     useEffect(() => {
         console.log(current.value)
-        //comment
-    })
+        send("START")
+    }, [])
     return (
         <>
         <AnimatePresence>
