@@ -1,71 +1,94 @@
 import {Machine, assign, spawn, send} from 'xstate'
 import createSquareMachine from './squareMachine'
-const squareData = [
-    {
-        id: '1',
-        value: '1'
-    },
-    {
-        id: '2',
-        value: '1'
-    },
-    {
-        id: '3',
-        value: '2'
-    },
-    {
-        id: '4',
-        value: '2'
-    },
-    {
-        id: '5',
-        value: '3'
-    },
-    {
-        id: '6',
-        value: '4'
-    },
-    {
-        id: '7',
-        value: '3'
-    },
-    {
-        id: '8',
-        value: '4'
-    },
-    {
-        id: '9',
-        value: '1'
-    },
-    {
-        id: '10',
-        value: '1'
-    },
-    {
-        id: '11',
-        value: '2'
-    },
-    {
-        id: '12',
-        value: '2'
-    },
-    {
-        id: '13',
-        value: '3'
-    },
-    {
-        id: '14',
-        value: '4'
-    },
-    {
-        id: '15',
-        value: '3'
-    },
-    {
-        id: '16',
-        value: '4'
+function shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+  
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+  
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+  
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
     }
-]
+  
+    return array;
+  }
+  
+  // Used like so
+  var arr = [2, 11, 37, 42];
+  shuffle(arr);
+  console.log(arr);
+// const squareData = [
+//     {
+//         id: '1',
+//         value: '1'
+//     },
+//     {
+//         id: '2',
+//         value: '1'
+//     },
+//     {
+//         id: '3',
+//         value: '2'
+//     },
+//     {
+//         id: '4',
+//         value: '2'
+//     },
+//     {
+//         id: '5',
+//         value: '3'
+//     },
+//     {
+//         id: '6',
+//         value: '4'
+//     },
+//     {
+//         id: '7',
+//         value: '3'
+//     },
+//     {
+//         id: '8',
+//         value: '4'
+//     },
+//     {
+//         id: '9',
+//         value: '1'
+//     },
+//     {
+//         id: '10',
+//         value: '1'
+//     },
+//     {
+//         id: '11',
+//         value: '2'
+//     },
+//     {
+//         id: '12',
+//         value: '2'
+//     },
+//     {
+//         id: '13',
+//         value: '3'
+//     },
+//     {
+//         id: '14',
+//         value: '4'
+//     },
+//     {
+//         id: '15',
+//         value: '3'
+//     },
+//     {
+//         id: '16',
+//         value: '4'
+//     }
+// ]
 const gameMachine = Machine({
     id: 'game',
     context: {
@@ -216,6 +239,17 @@ const gameMachine = Machine({
     actions: {
         populate: assign({
             squares: (context, event) => {
+                const squareIds = ['1', '2', '3', '4']
+                let squareData = []
+                for(let i=0; i<4; i++) {
+                    for(let j=0; j<4; j++) {
+                        squareData.push({
+                            id: (squareData.length+1).toString(),
+                            value: (i+1).toString()
+                        })
+                    }
+                }
+                console.log(squareData)
                 const squares = squareData.map(s => {
                     const square = spawn(createSquareMachine(s), s.id)
                     return (
