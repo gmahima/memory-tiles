@@ -17,12 +17,25 @@ function shuffle(array) {
     }
   
     return array;
-  }
+}
+// function getRandomDifferent(range, last = undefined) {
+//     if (arr.length === 0) {
+//         return;
+//     } else if (arr.length === 1) {
+//         return arr[0];
+//     } else {
+//         let num = 0;
+//         do {
+//         num = Math.floor(Math.random() * arr.length);
+//         } while (arr[num] === last);
+//         return arr[num];
+//     }
+// }
   
   // Used like so
-  var arr = [2, 11, 37, 42];
-  shuffle(arr);
-  console.log(arr);
+//   var arr = [2, 11, 37, 42];
+//   shuffle(arr);
+//   console.log(arr);
 // const squareData = [
 //     {
 //         id: '1',
@@ -249,13 +262,27 @@ const gameMachine = Machine({
     actions: {
         populate: assign({
             squares: (context, event) => {
-                const squareIds = ['1', '2', '3', '4']
+                // const squareIds = ['1', '2', '3', '4']
+                const squareIds = []
+                let i =1;
+                while(i <= 4) {
+                    let item = (Math.floor(Math.random() * (151 - 1 + 1)) + 1).toString()
+                    if(squareIds.length === 0) {
+                        squareIds.push(item)
+                        i++
+                    }
+                    else if(item !== squareIds[squareIds.length - 1]) {
+                        squareIds.push(item)
+                        i++
+                    }
+                }
+                console.log(squareIds)
                 let squareData = []
                 for(let i=0; i<4; i++) {
                     for(let j=0; j<4; j++) {
                         squareData.push({
                             id: (squareData.length+1).toString(),
-                            value: (i+1).toString()
+                            value: (squareIds[i]).toString()
                         })
                     }
                 }
