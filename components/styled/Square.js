@@ -20,9 +20,9 @@ export const Visible = styled(motion.div) `
         }
     }}
 `
-export const StyledImage = styled(motion.img) `
-${tw `w-full`}
-`
+// export const StyledImage = styled(motion.img) `
+// ${tw `w-full`}
+// `
 
 export const Hidden = styled(Visible) `
 ${tw `bg-white shadow`}

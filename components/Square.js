@@ -1,6 +1,6 @@
 import React, {useMemo, useState} from 'react'
 import {useActor} from '@xstate/react'
-import {Visible, Hidden, Disabled, StyledImage} from './styled/Square'
+import {Visible, Hidden, Disabled} from './styled/Square'
 import Image from 'next/image'
 import {AnimatePresence, motion} from 'framer-motion'
 import tw from 'twin.macro'
@@ -96,7 +96,7 @@ const Square = ({service, x, y}) => {
     }
     return (
           <SquareContainer value={current.value} handleClick={onClick}>
-            {(current.value === 'showAnswer' || current.value === 'visible') && <StyledImage animate={{}}layout='fill' src={`/sprites/${current.context.value}.png`} alt={`${current.context.value}`}></StyledImage>}
+            {(current.value === 'showAnswer' || current.value === 'visible') && <Image layout='fill' src={`/sprites/${current.context.value}.png`} alt={`${current.context.value}`}></Image>}
           </SquareContainer>
 
     //     <SquareContainer
