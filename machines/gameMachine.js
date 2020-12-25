@@ -103,15 +103,25 @@ const gameMachine = Machine({
         },
         disabledSquares: []
     },
-    initial: 'start',
+    initial: 'noBoard',
     states: {
-        start: {
+        noBoard: {
             on: {
-                START: {
-                    target: 'idle'
+                SET_UP_BOARD: {
+                    target: 'start'
                 }
             },
-            exit: 'populate'
+        },
+        start: {
+            // on: {
+            //     START: {
+            //         target: 'idle'
+            //     }
+            // },
+            always: {
+                target: 'idle'
+            },
+            entry: 'populate'
         },
         // peek: {
         //     always: {

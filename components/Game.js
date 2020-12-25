@@ -11,7 +11,7 @@ const Game = () => {
     const n = 4;
     useEffect(() => {
         console.log(current.value)
-        send("START")
+        send("SET_UP_BOARD")
     }, [])
     return (
         <>
