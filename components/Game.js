@@ -31,7 +31,7 @@ const Game = () => {
                 </Overlay>
             )}
         </AnimatePresence>
-        {squares && (
+        {squares && (squares.length> 0) && (
             <SquaresContainer order={n}>
                 {squares.map((s, i) => {
                     return (
