@@ -6,7 +6,14 @@ export const SquaresContainer = styled.div `
     grid-template-columns: ${({order}) => `repeat(${order}, 1fr)`};
     grid-template-rows: ${({order}) => `repeat(${order}, 1fr)`};
     grid-gap: 0.5em;
+    width: 16rem;
+    height: 16rem;
     ${tw `p-4 sm:p-12 bg-gray-200 rounded`}
+    @media (min-width: 768px) {
+        width: 32rem;
+        height: 32rem;
+    }
+
 `
 export const Overlay = styled(motion.div) `
 ${tw `w-screen h-screen text-white fixed top-0 left-0 z-50 rounded flex items-center justify-center`}
